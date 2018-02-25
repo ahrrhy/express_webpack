@@ -1,4 +1,5 @@
-//import '../css/main.css';
+import '../css/main.css';
+
 ;(function () {
     document.addEventListener("DOMContentLoaded", function () {
         let createUserForm = JQuery('#userform'),

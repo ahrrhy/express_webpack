@@ -3,7 +3,7 @@ const server = express();
 const path    = require("path");
 const bodyParser = require('body-parser');
 
-server.use(express.static('src'));
+server.use(express.static('./'));
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
 
