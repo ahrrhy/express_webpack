@@ -1,9 +1,18 @@
 import '../css/main.css';
 
+const METHOD_POST = 'POST',
+    DOMAIN = 'http://localhost:8010';
+
+let createUserForm = document.getElementById('userform'),
+    createTaskForm = document.getElementById('taskform');
+
+function serverConnecttion(form) {
+    let xhr = new XMLHttpRequest(),
+        msg = form.serialize();
+}
+
 ;(function () {
     document.addEventListener("DOMContentLoaded", function () {
-        let createUserForm = JQuery('#userform'),
-            createTaskForm = JQuery('#taskform');
 
         createUserForm.on('submit', (e) => {
             e.preventDefault();
