@@ -6,56 +6,27 @@ const METHOD_POST = 'POST',
 let createUserForm = document.getElementById('userform'),
     createTaskForm = document.getElementById('taskform');
 
+console.log(createUserForm);
+
+createTaskForm.addEventListener('click', serverConnecttion(createTaskForm));
+createUserForm.addEventListener('click', serverConnecttion(createUserForm));
+
 function serverConnecttion(form) {
     let xhr = new XMLHttpRequest(),
-        msg = form.serialize();
+        action = form.getAttribute('action');
+        //msg = form.serialize();
+    xhr.open(METHOD_POST, DOMAIN, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    //xhr.send(msg);
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState != 4) return;
+
+        if (xhr.status != 200) {
+            console.log(xhr.status + ': ' + xhr.statusText);
+        } else {
+            console.log(xhr.responseText);
+        }
+
+    };
 }
-
-;(function () {
-    document.addEventListener("DOMContentLoaded", function () {
-
-        createUserForm.on('submit', (e) => {
-            e.preventDefault();
-
-            JQuery.ajax( {
-                method: 'POST',
-                url: '/create-user',
-                body: createUserForm.serialize(),
-                success: function (result) {
-                    if (createUserForm.hasClass('red')) {
-                        createUserForm.removeClass('red');
-                    }
-                    createTaskForm.addClass('green');
-                },
-                error: function (error) {
-                    if (createUserForm.hasClass('green')) {
-                        createUserForm.removeClass('green');
-                    }
-                    createUserForm.addClass('red')
-                }
-            } );
-        });
-
-        createTaskForm.on('submit', (e) => {
-            e.preventDefault();
-
-            JQuery.ajax( {
-                method: 'POST',
-                url: '/create-task',
-                body: createTaskForm.serialize(),
-                success: function (result) {
-                    if (createTaskForm.hasClass('red')) {
-                        createTaskForm.removeClass('red');
-                    }
-                    createTaskForm.addClass('green');
-                },
-                error: function (error) {
-                    if (createTaskForm.hasClass('green')) {
-                        createTaskForm.removeClass('green');
-                    }
-                    createTaskForm.addClass('red')
-                }
-            } );
-        });
-    });
-})();
