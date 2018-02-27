@@ -7,16 +7,22 @@ server.use(express.static('./'));
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
 
-let create_user = require('./server/controllers/create-user'),
-    create_task = require('./server/controllers/create-task');
+function create_user (request, response, next) {
+    let user = request.body;
+    console.log(user);
+    response.send(user.login);
+    next();
+}
+function create_task (request, response, next) {
+    let task = request.body;
+    console.log(task);
+    response.send(task.taskname);
+    next();
+}
 
-server.post('/create-user', create_user, function(req, res) {
-    res.send('Hello from server: ' + req.body.message);
-});
+server.post('/create-user', create_user);
 
-server.post('/create-task', create_task, function (req, res) {
-    res.send('Hello from server: ' + req.body.message);
-});
+server.post('/create-task', create_task);
 
 
 server.listen(8010);
